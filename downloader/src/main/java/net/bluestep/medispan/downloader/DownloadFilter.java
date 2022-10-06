@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public enum DownloadFilter {
   SOFTWARE(Pattern.compile(ConfigurationManager.getAppSettings("download_filter_softwareName"))),
-  INCREMANTAL_DB(Pattern.compile(ConfigurationManager.getAppSettings("download_filter_incrementalDbName"))),
+  INCREMENTAL_DB(Pattern.compile(ConfigurationManager.getAppSettings("download_filter_incrementalDbName"))),
   FULL_DB(Pattern.compile(ConfigurationManager.getAppSettings("download_filter_fullDbName")));
 
   private static final Pattern fileNameFilter = Pattern
