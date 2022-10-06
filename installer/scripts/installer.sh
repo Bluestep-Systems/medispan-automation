@@ -8,6 +8,7 @@ cd $(dirname "$0")
 : ${M6N_DOWNLOAD_DIR=/"medispan/downloaded"}
 : ${M6N_INSTALLER_DIR="/medispan/installer"}
 : ${M6N_XML_SRC="/medispan/conf/MediSpan.xml"}
+: ${M6N_USER_CONFIG_XML_SRC="/medispan/conf/MediSpan.Install.User.Config.xml"}
 : ${M6N_AUTO_START="/Autostart:Data1"}
 : ${M6N_DATA_DOWNLOAD_TYPE="INCREMENTAL_DB"}
 

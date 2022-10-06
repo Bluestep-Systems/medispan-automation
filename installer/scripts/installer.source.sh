@@ -4,7 +4,10 @@ pushd "${M6N_INSTALLER_DIR}"/Java > /dev/null
 dos2unix medispan-install.sh
 ln -sf "${M6N_XML_SRC}"
 
-cat <<EOF > MediSpan.Install.User.Config.xml
+if [ -f "${M6N_USER_CONFIG_XML_SRC}" ]; then
+    ln -sf "${M6N_USER_CONFIG_XML_SRC}"
+else
+    cat <<EOF > MediSpan.Install.User.Config.xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <MediSpanConfig>
     <Install>
@@ -18,6 +21,7 @@ cat <<EOF > MediSpan.Install.User.Config.xml
     </Install>
 </MediSpanConfig>
 EOF
+fi
 
 sh medispan-install.sh "${M6N_AUTO_START}"
 
