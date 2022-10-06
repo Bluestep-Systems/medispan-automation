@@ -178,14 +178,14 @@ public class DeliveryTools {
               }
             }
             if (DownloadFilter.filterAll(fileName)) {
+              if (issueDate.isAfter(latestIssueDate)) {
+                latestIssueDate = issueDate;
+              }
               if (Tools.checkSum(filePath(fileName), md5checksum)) {
                 stringBuilder.append("Already downloaded --> ");
               } else {
                 fileInfos.add(new FileInfo(fileName, appendedURL, fileId, issueDate));
                 stringBuilder.append("Passed filters --> ");
-                if (issueDate.isAfter(latestIssueDate)) {
-                  latestIssueDate = issueDate;
-                }
               }
             } else {
               stringBuilder.append("Failed filters --> ");
