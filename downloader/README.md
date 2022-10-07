@@ -10,7 +10,7 @@ The [installer](../installer/README.md) uses the downloader.
 - `m6n_authentication_password`: Required. Medi-Span password
 - `m6n_download_types`: Default `SOFTWARE`. Can be any of `SOFTWARE,INCREMENTAL_DB,FULL_DB`
 - `m6n_download_latestOnly`: Default `true`.  Find the latest issue date of the select files and only download those files with that date.
-- See [src/main/resources/config.properties](src/main/resources/config.properties) for other possible environmental variable overrides available.
+- See [src/main/resources/config.properties](src/main/resources/config.properties) for other possible environmental variable you can use to override the downloaders behavior.
 
 ## Docker
 ### Create
