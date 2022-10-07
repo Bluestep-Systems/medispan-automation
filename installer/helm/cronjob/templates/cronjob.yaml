@@ -9,7 +9,7 @@ spec:
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
   jobTemplate:
     spec:
-      backoffLimit: {{- with .Values.backoffLimit }}
+      backoffLimit: {{ .Values.backoffLimit }}
       template:
         spec:
           volumes:
