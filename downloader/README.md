@@ -1,6 +1,6 @@
 # Medi-Span Downloader
 
-Java code was adapted from author CHale of [Medi-Span®'s](https://www.wolterskluwer.com/en/solutions/medi-span).
+Java code was adapted from author CHale of [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span).
 
 Used to automate the download of Medi-Span code and/or data using provided credentials.
 The [installer](../installer/README.md) uses the downloader.
