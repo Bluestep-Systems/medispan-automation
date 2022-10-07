@@ -1,12 +1,16 @@
-restartPolicy: Never
+restartPolicy: OnFailure
 
 concurrencyPolicy: Forbid
    
 #At 00:00 on Sunday
 schedule: "@weekly"
+backoffLimit: 1
 
 username: "use --set username=xxx"
 password: "use --set password=xxx"
+
+# The id inside of MediSpan.xml that you want to update.
+dataAccessId: "OracleData"
    
 image:
   repository: caffeine01/medispan-installer
@@ -55,7 +59,33 @@ tolerations: []
 affinity: {}
 
 conf:
-  # The Medisspan
-  MediSpan.xml:
-  #For configurting medispan installer
-  #MediSpan.Install.User.Config.xml:
+  # Use a real MediSpan.xml file.
+  MediSpan.xml: |
+    <!-- Very imcomplete MediSpan.xml -->
+    <?xml version="1.0" encoding="utf-8" ?>
+    <MediSpanConfig>
+      <DataAccess>
+      </DataAccess>
+    </MediSpanConfig>
+
+  #Override a specific saved installer configuration file if you want
+  #Use M6N_AUTO_START to specify the Autostart InstallerId
+  # MediSpan.Install.User.Config.xml: |
+  #   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  #   <MediSpanConfig>
+  #       <Install>
+  #           <Installs>
+  #               <MyData1>
+  #                   <Installer>Directory</Installer>
+  #                   <Directory_Path>/custom-data-folder</Directory_Path>
+  #                   <Product_DataAccessId>OracleData</Product_DataAccessId>
+  #               </MyData1>
+  #           </Installs>
+  #       </Install>
+  #   </MediSpanConfig>
+
+extraEnvs:
+  # - name: M6N_DATA_DOWNLOAD_TYPE
+  #   value: "FULL_DB"
+  # - name: M6N_AUTO_START
+  #   value: "/Autostart:MyData1"

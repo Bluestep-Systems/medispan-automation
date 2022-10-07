@@ -5,11 +5,11 @@ metadata:
     {{- include "m6n-installer.labels" . | nindent 4 }}
   name: {{ include "m6n-installer.fullname" . }}
 spec:
-  schedule: {{ .Values.schedule }}
+  schedule: "{{ .Values.schedule }}"
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
   jobTemplate:
     spec:
-      backoffLimit: 1
+      backoffLimit: {{- with .Values.backoffLimit }}
       template:
         spec:
           volumes:
@@ -23,6 +23,12 @@ spec:
             image: "{{ .repository }}:{{ .tag }}"
             imagePullPolicy: {{ .pullPolicy }}
            {{- end }}
+            env:
+            - name: M6N_DATA_ACCESS_ID
+              value: "{{ .Values.dataAccessId }}"
+              {{- if .Values.extraEnvs }}
+                {{- toYaml .Values.extraEnvs | nindent 12 }}
+              {{- end }}
             envFrom:
             - secretRef:
                 name: {{ include "m6n-installer.fullname" . }}
