@@ -1,7 +1,7 @@
 # Medi-Span Installer
 
 Used to automate the installation/upgrade of datafiles from [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span) to your database.
-Another use of the installer is to run as a weekly [CronJob](helm/cronjob/README.md) in Kubernetes.
+Another use of the installer is to run as a weekly [CronJob](helm/cronjob/README.md) in Kubernetes. You will already need an account and licenses from Medi-Span for this to be useful.
 
 ## Default installer will.
 1. Download the latest java jar files
