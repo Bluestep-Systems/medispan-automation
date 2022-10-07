@@ -3,7 +3,7 @@
 Java code was adapted from author CHale code of [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span).
 
 Used to automate the download of Medi-Span code and/or data using provided credentials.
-The installer uses the [downloader](../downloader/README.md).
+The [installer](../installer/README.md) uses the downloader.
 
 ## Environment Variables
 - `m6n_authentication_username`: Required. Medi-Span username
