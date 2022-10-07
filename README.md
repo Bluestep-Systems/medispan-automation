@@ -1,6 +1,6 @@
 # Medi-Span Automation Helpers
 
-Additional software to facilitate the automation of [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span) software and data.
+Free tools to automate [Medi-Span®'s](https://www.wolterskluwer.com/en/solutions/medi-span) software and data downloads and their installations. 
 You will already need an account and licenses from Medi-Span for these tools to be useful.
 
 ## Downloader
