@@ -1,6 +1,6 @@
 # Helm CronJob
 
-A Kubernetes CronJob to automate the update of [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span) data. You will already need an account and licenses from Medi-Span to use this helm chart.
+A Kubernetes CronJob to automate the update of [Medi-Span®](https://www.wolterskluwer.com/en/solutions/medi-span) data. You will already need an account and licenses from Medi-Span for this helm chart to work.
 
 The default behaviour is to do incremental updates weekly. 
 
