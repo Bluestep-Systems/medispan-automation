@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ include "m6n-installer.fullname" . }}"-conf
+data:
+  {{- toYaml .Values.conf | nindent 2 }}
