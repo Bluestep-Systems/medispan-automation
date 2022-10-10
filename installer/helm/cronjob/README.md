@@ -39,8 +39,6 @@ password: medispan-password
 dataAccesId: PostgresData
 EOF
 ```
-<<<<<<< HEAD
-=======
 
 ### Do an initial full database install.
 This command overrides `M6N_DATA_DOWNLOAD_TYPE` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
@@ -80,4 +78,3 @@ extraEnvs:
     value: INCREMENTAL_DB
 EOF
 ```
->>>>>>> bcc155c (Added more logging.)
