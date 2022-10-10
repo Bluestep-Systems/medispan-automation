@@ -10,7 +10,7 @@ username: "use --set username=xxx"
 password: "use --set password=xxx"
 
 # The id inside of MediSpan.xml that you want to update.
-dataAccessId: "OracleData"
+dataAccessId: "PostgresData"
    
 image:
   repository: caffeine01/medispan-installer

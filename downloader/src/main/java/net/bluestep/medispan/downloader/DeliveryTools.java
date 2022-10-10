@@ -1,5 +1,6 @@
 package net.bluestep.medispan.downloader;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,7 +14,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +35,7 @@ import org.xml.sax.InputSource;
 public class DeliveryTools {
 
   private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+  private static final Logger logger = Logger.getLogger(App.class.getName());
 
   public DeliveryTools() {
   }
@@ -74,7 +77,7 @@ public class DeliveryTools {
 
       final NodeList nodeList = xmlDoc.getElementsByTagName(Localization.loadString("NODE_TOKEN"));
       if (nodeList.getLength() > 0) {
-        ImpLogger.getInstance().writeLog(Localization.loadString("AUTH_SUCCESS"));
+        logger.info(Localization.loadString("AUTH_SUCCESS"));
         final var strToken = nodeList.item(0).getTextContent();
         Tools.writeTokenToFile(strToken);
         bIsUserValid = true;
@@ -82,14 +85,13 @@ public class DeliveryTools {
         final NodeList error = xmlDoc.getElementsByTagName(Localization.loadString("NODE_ERROR"));
 
         if (error.getLength() > 0) {
-          ImpLogger.getInstance().writeLog(error.item(0).getTextContent());
+          logger.info(error.item(0).getTextContent());
         } else {
-          ImpLogger.getInstance().writeLog(Localization.loadString("ERROR_MESSAGE_HEADER"));
+          logger.info(Localization.loadString("ERROR_MESSAGE_HEADER"));
         }
       }
-
     } catch (final Exception e) {
-      ImpLogger.getInstance().writeLogException(e);
+      logger.log(Level.WARNING, e.getMessage(), e);
     }
     return bIsUserValid;
   }
@@ -110,7 +112,7 @@ public class DeliveryTools {
   public static List<FileInfo> getAvailableFiles() throws Exception {
     final var fileInfos = new ArrayList<FileInfo>();
 
-    ImpLogger.getInstance().writeLog(Localization.loadString("GET_FILE_LIST"));
+    logger.info(Localization.loadString("GET_FILE_LIST"));
     final String strRetrieveMode = ConfigurationManager.getAppSettings("download_fullRetrieveMode");
     final String token = Tools.readTokenFromFile();
     final String fileList = Boolean.parseBoolean(strRetrieveMode)
@@ -140,7 +142,7 @@ public class DeliveryTools {
       final NodeList errorNodes = xmlDoc.getElementsByTagName(Localization.loadString("NODE_ERROR"));
 
       if (errorNodes.getLength() > 0) {
-        ImpLogger.getInstance().writeLog(errorNodes.item(0).getTextContent());
+        logger.info(errorNodes.item(0).getTextContent());
       } else {
         final NodeList fileListNodes = xmlDoc.getElementsByTagName(Localization.loadString("NODE_FILELIST"));
 
@@ -185,16 +187,16 @@ public class DeliveryTools {
                 stringBuilder.append("Already downloaded --> ");
               } else {
                 fileInfos.add(new FileInfo(fileName, appendedURL, fileId, issueDate));
-                stringBuilder.append("Passed filters --> ");
+                stringBuilder.append("Adding --> ");
               }
             } else {
-              stringBuilder.append("Failed filters --> ");
+              stringBuilder.append("Skipping --> ");
             }
             stringBuilder.append(fileNode.getTextContent()).append(System.lineSeparator());
           }
-          ImpLogger.getInstance().writeLog(stringBuilder.toString());
+          logger.info(stringBuilder.toString());
         } else {
-          ImpLogger.getInstance().writeLog(Localization.loadString("ERROR_MESSAGE_HEADER"));
+          logger.info(Localization.loadString("ERROR_MESSAGE_HEADER"));
         }
         if (Boolean.parseBoolean(ConfigurationManager.getAppSettings("download_latestOnly"))) {
           final var latestIssueDate2 = latestIssueDate;
@@ -203,7 +205,7 @@ public class DeliveryTools {
       }
 
     } catch (final Exception e) {
-      ImpLogger.getInstance().writeLogException(e);
+      logger.log(Level.WARNING, e.getMessage(), e);
     }
 
     return fileInfos;
@@ -213,47 +215,61 @@ public class DeliveryTools {
   // <editor-fold defaultstate="collapsed" desc="Download Files">
   //
   //
-  public static void doDownloadFiles(final List<FileInfo> fileInfos) throws Exception {
+  public static void doDownloadFiles(final List<FileInfo> fileInfos) throws InterruptedException, ExecutionException {
     final String token = Tools.readTokenFromFile();
-    ImpLogger.getInstance().writeLog(Localization.loadString("DOWNLOADING"));
+    logger.info(Localization.loadString("DOWNLOADING"));
 
     final HttpClient httpclient = HttpClient.newBuilder()
         .connectTimeout(Duration.ofSeconds(30))
         .followRedirects(Redirect.NORMAL)
         .build();
     final AtomicInteger fileDownloadCount = new AtomicInteger();
-    final ForkJoinPool customThreadPool = new ForkJoinPool(
+    final var customThreadPool = Executors.newFixedThreadPool(
         Integer.parseInt(ConfigurationManager.getAppSettings("download_concurrent")));
-    final var task = customThreadPool.submit(() -> fileInfos.parallelStream()
-        .forEach(fileInfo -> {
-          try {
-            ImpLogger.getInstance()
-                .writeLog(String.format(Localization.loadString("FILE_ATTEMPT"), fileInfo.name()));
 
-            final HttpRequest webRequest = HttpRequest.newBuilder()
-                .uri(URI.create(fileInfo.url()))
-                .timeout(Duration.ofMinutes(2))
-                .header("X-Token", token)
-                .header("X-FileID", fileInfo.id())
-                .GET()
-                .build();
+    final var futureDownloads = fileInfos.stream()        
+        .map(fileInfo -> 
+          customThreadPool.submit(() -> {
+            try {
 
-            // use httpclient to download file
-            httpclient.send(
-                webRequest,
-                HttpResponse.BodyHandlers.ofFile(filePath(fileInfo.name())));
+              final HttpRequest webRequest = HttpRequest.newBuilder()
+                  .uri(URI.create(fileInfo.url()))
+                  .timeout(Duration.ofMinutes(20))
+                  .header("X-Token", token)
+                  .header("X-FileID", fileInfo.id())
+                  .GET()
+                  .build();
 
-            fileDownloadCount.incrementAndGet();
-          } catch (final Exception e) {
-            Logger.getLogger(DeliveryTools.class.getName()).log(Level.SEVERE, null, e);
-          }
-        }));
+              logger.info(String.format(Localization.loadString("FILE_ATTEMPT"), fileInfo.name()));
+              httpclient.send(
+                  webRequest,
+                  HttpResponse.BodyHandlers.ofFile(filePath(fileInfo.name())));
 
-    task.get();
+              final int downloaded = fileDownloadCount.incrementAndGet();
+              logger.info(String.format(Localization.loadString("FILE_SUCCESS"),
+                  String.valueOf(downloaded),
+                  String.valueOf(fileInfos.size()),
+                  fileInfo.name()));
+            } catch (final IOException | InterruptedException | RuntimeException e) {
+              logger.log(Level.SEVERE, e.getMessage(), e);
+            }
+          })
+        ).toList();
+
+    futureDownloads.forEach(d -> {
+      try {
+        d.get();
+      } catch (InterruptedException | ExecutionException e) {
+        logger.log(Level.SEVERE, e.getMessage(), e);
+      }
+    });
     customThreadPool.shutdownNow();
     if (fileDownloadCount.get() < fileInfos.size()) {
-      ImpLogger.getInstance().writeLog(String.format(Localization.loadString("ONLY_X_FILES"),
+      logger.info(String.format(Localization.loadString("ONLY_X_FILES"),
           String.valueOf(fileDownloadCount), String.valueOf(fileInfos.size())));
+    } else {
+      logger.info(String.format(Localization.loadString("FILE_X_SUCCESS"),
+          String.valueOf(fileDownloadCount)));
     }
   }
 

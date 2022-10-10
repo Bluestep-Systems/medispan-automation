@@ -31,7 +31,7 @@ docker run -it \
   -e m6n_authentication_password="your-medispan-password" \
   -e M6N_DATA_ACCESS_ID=OracleData \
   -v /medispan/downloaded:/medispan/downloaded \
-  -v /medispan/data:/medispan/data  \ 
+  -v /medispan/data:/medispan/data  \
   -v /medispan/conf/MediSpan.xml:/medispan/conf/MediSpan.xml \
   --network=host \
   medispan-installer

@@ -1,11 +1,8 @@
 
 package net.bluestep.medispan.downloader;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +23,8 @@ public class App {
    * @param args the command line arguments
    */
 
+  private static final Logger logger = Logger.getLogger(App.class.getName());
+
   public static void main(final String[] args) {
     // check output directory.
     // load the properties
@@ -40,25 +39,19 @@ public class App {
         System.exit(1);
       }
 
-      final String logfile = baseDir + File.separator
-          + ConfigurationManager.getAppSettings("output_logFilePrefix")
-          + DateTimeFormatter.ofPattern(".ddMMyyyy.HHmm").format(ZonedDateTime.now())
-          + ".log";
-      ImpLogger.getInstance().Init(logfile, false);
-
       if (DeliveryTools.sendUserForValidation()) {
         final var fileList = DeliveryTools.getAvailableFiles();
         if (!fileList.isEmpty()) {
           DeliveryTools.doDownloadFiles(fileList);
-          ImpLogger.getInstance().writeLog(Localization.loadString("DOWNLOAD_SUCCESS"));
+          logger.info(Localization.loadString("DOWNLOAD_SUCCESS"));
         } else {
-          ImpLogger.getInstance().writeLog(Localization.loadString("DOWNLOAD_FAIL"));
+          logger.info(Localization.loadString("DOWNLOAD_FAIL"));
         }
       } else {
-        ImpLogger.getInstance().writeLog(Localization.loadString("ERROR_MESSAGE_HEADER"));
+        logger.info(Localization.loadString("ERROR_MESSAGE_HEADER"));
       }
     } catch (final Exception ex) {
-      Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+      logger.log(Level.SEVERE, null, ex);
     }
 
   }

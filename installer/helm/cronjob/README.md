@@ -39,3 +39,45 @@ password: medispan-password
 dataAccesId: PostgresData
 EOF
 ```
+<<<<<<< HEAD
+=======
+
+### Do an initial full database install.
+This command overrides `M6N_DATA_DOWNLOAD_TYPE` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
+```bash
+cat <<EOF | helm upgrade --install --namespace default \ 
+  m6n-installer . \
+  -f <(echo -e "conf:\n  MediSpan.xml: |"; \ 
+       cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+  -f -
+username: medispan-username
+password: medispan-password
+dataAccesId: PostgresData
+extraEnvs:
+  - name: M6N_DATA_DOWNLOAD_TYPE
+    value: FULL_DB
+EOF
+```
+
+Trigger the cronjob
+```bash
+echo "Manual Trigger cronjob to do a full database update"
+kubectl --context=${HELM_KUBECONTEXT} --namespace b6p-system create job --from=cronjob/m6n-installer m6p-installer-manual-init
+```
+
+Now change the cronjob to an incremental.
+```bash
+cat <<EOF | helm upgrade --install --namespace default \ 
+  m6n-installer . \
+  -f <(echo -e "conf:\n  MediSpan.xml: |"; \ 
+       cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+  -f -
+username: medispan-username
+password: medispan-password
+dataAccesId: PostgresData
+extraEnvs:
+  - name: M6N_DATA_DOWNLOAD_TYPE
+    value: INCREMENTAL_DB
+EOF
+```
+>>>>>>> bcc155c (Added more logging.)

@@ -22,8 +22,12 @@ if [ -z "${M6N_DATA_ACCESS_ID}" ]; then
     exit 1
 fi
 
+echo "Starting Software Download"
 /medispan/downloader.sh
-m6n_download_types="${M6N_DATA_DOWNLOAD_TYPE}" m6n_output_path="${M6N_DATA_DIR}" /medispan/downloader.sh
 
 source ./extractor.source.sh
+
+echo "Starting Data Download: ${M6N_DATA_DOWNLOAD_TYPE}"
+m6n_download_types="${M6N_DATA_DOWNLOAD_TYPE}" m6n_output_path="${M6N_DATA_DIR}" /medispan/downloader.sh
+
 source ./installer.source.sh
