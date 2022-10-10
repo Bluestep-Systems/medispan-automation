@@ -51,9 +51,7 @@ cat <<EOF | helm upgrade --install --namespace default \
 username: medispan-username
 password: medispan-password
 dataAccesId: PostgresData
-extraEnvs:
-  - name: M6N_DATA_DOWNLOAD_TYPE
-    value: FULL_DB
+dataDownloadType: FULL_DB
 EOF
 ```
 
@@ -73,8 +71,6 @@ cat <<EOF | helm upgrade --install --namespace default \
 username: medispan-username
 password: medispan-password
 dataAccesId: PostgresData
-extraEnvs:
-  - name: M6N_DATA_DOWNLOAD_TYPE
-    value: INCREMENTAL_DB
+dataDownloadType: INCREMENTAL_DB
 EOF
 ```

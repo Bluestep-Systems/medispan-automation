@@ -26,6 +26,8 @@ spec:
             env:
             - name: M6N_DATA_ACCESS_ID
               value: "{{ .Values.dataAccessId }}"
+            - name: M6N_DATA_DOWNLOAD_TYPE
+              value: "{{ .Values.dataDownloadType }}"
               {{- if .Values.extraEnvs }}
                 {{- toYaml .Values.extraEnvs | nindent 12 }}
               {{- end }}

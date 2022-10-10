@@ -12,6 +12,9 @@ password: "use --set password=xxx"
 # The id inside of MediSpan.xml that you want to update.
 dataAccessId: "PostgresData"
    
+# Can be either "FULL_DB" or "INCREMENTAL_DB"
+dataDownloadType: INCREMENTAL_DB
+
 image:
   repository: caffeine01/medispan-installer
   tag: "latest"
@@ -85,7 +88,5 @@ conf:
   #   </MediSpanConfig>
 
 extraEnvs:
-  # - name: M6N_DATA_DOWNLOAD_TYPE
-  #   value: "FULL_DB"
   # - name: M6N_AUTO_START
   #   value: "/Autostart:MyData1"
