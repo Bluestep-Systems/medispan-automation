@@ -58,7 +58,7 @@ EOF
 Trigger the cronjob
 ```bash
 echo "Manual Trigger cronjob to do a full database update"
-kubectl --context=${HELM_KUBECONTEXT} --namespace b6p-system create job --from=cronjob/m6n-installer m6p-installer-manual-init
+kubectl --context=${HELM_KUBECONTEXT} --namespace default create job --from=cronjob/m6n-installer m6p-installer-manual-init
 ```
 
 Now change the cronjob to an incremental.
