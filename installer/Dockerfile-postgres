@@ -1,0 +1,5 @@
+FROM medispan-installer
+
+# Medispan's included postgres drivers are old and do not work with the latest authentication scram-sha-256
+RUN curl -L https://jdbc.postgresql.org/download/postgresql-42.5.0.jar -o /medispan/drivers/postgresql-42.5.0.jar
+

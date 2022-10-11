@@ -1,4 +1,3 @@
-mkdir -p "${M6N_INSTALLER_DIR}"
 pushd "${M6N_INSTALLER_DIR}" > /dev/null
 
 echo "Removing old files if they exist."

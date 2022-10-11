@@ -11,9 +11,10 @@ Another use of the installer is to run as a weekly [CronJob](helm/cronjob/README
 - `m6n_authentication_username`: Required. Medi-Span username
 - `m6n_authentication_password`: Required. Medi-Span password
 - `M6N_DATA_ACCESS_ID`: Required. DataId in MediSpan.xml
+- `M6N_DRIVERS_DIR`: If jdbc drivers exist here, then they will be used instead of the defaults.
 - `M6N_DATA_DOWNLOAD_TYPE`: Default `INCREMENTAL_DB`. Can be used to download `FULL_DB` instead of `INCREMENTAL_DB` files or both `INCREMENTAL_DB,FULL_DB`.
 - `M6N_AUTO_START`: Default `/Autostart:Data1`. Can be used to select a different installer or more than one.  Will also need to mount a custom file at /medispan/conf/MediSpan.Install.User.Config.xml
-- See **installer/scripts/installer.sh** for other environmental variable overrides available.
+- See [scripts/env-src.sh](scripts/env-src.sh) for other environmental variable overrides available.
 
 ## Docker
 
@@ -45,3 +46,14 @@ docker run -it \
 
 ## License
 [MIT License](LICENSE)
+
+## Docker Postgres
+
+At this time the postgres used by the medispan-install.sh uses an outdated driver.
+This image just installs a newer postgres driver.
+
+### Create
+```bash
+installer/docker-postgres-build.sh
+```
+
