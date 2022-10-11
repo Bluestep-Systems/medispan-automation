@@ -41,7 +41,7 @@ EOF
 ```
 
 ### Do an initial full database install.
-This command overrides `M6N_DATA_DOWNLOAD_TYPE` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
+This command overrides `dataDownloadType` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
 ```bash
 cat <<EOF | helm upgrade --install --namespace default \ 
   m6n-installer . \
