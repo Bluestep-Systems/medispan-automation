@@ -4,4 +4,4 @@ set -e
 
 cd $(dirname "$0")
 
-docker build . -t medispan-installer-postgres -f Dockerfile-postgres
+docker build . -t medispan-installer:jdbc-postgres -f Dockerfile-postgres

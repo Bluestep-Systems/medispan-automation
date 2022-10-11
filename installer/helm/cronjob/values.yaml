@@ -16,11 +16,11 @@ dataAccessId: "PostgresData"
 dataDownloadType: INCREMENTAL_DB
 
 image:
+  repository: caffeine01/medispan-installer
   #Overrides all the jdbc drivers to use a newer version of postgres
-  repository: caffeine01/medispan-installer-postgres
+  tag: "jdbc-postgres"
   #Uses the all built in jdbc drivers
-#  repository: caffeine01/medispan-installer
-  tag: "latest"
+  # tag: "jdbc-default"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

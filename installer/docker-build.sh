@@ -4,4 +4,4 @@ set -e
 
 cd $(dirname "$0")
 
-docker build . -t medispan-installer
+docker build . -t medispan-installer:jdbc-default
