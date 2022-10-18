@@ -9,4 +9,4 @@ if [ -z "${m6n_authentication_password}" ]; then
     exit 1
 fi
 
-java -classpath /medispan/downloader.jar net.bluestep.medispan.downloader.App
+java -classpath /opt/medispan/downloader.jar net.bluestep.medispan.downloader.App

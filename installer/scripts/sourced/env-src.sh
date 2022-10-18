@@ -1,0 +1,15 @@
+: ${M6N_VAR="/var/medispan"}
+: ${M6N_DATA_DIR="${M6N_VAR}/data"}
+: ${M6N_DOWNLOAD_DIR="${M6N_VAR}/downloaded"}
+: ${M6N_DOWNLOAD_DIR_CLEAN="TRUE"}
+: ${M6N_INSTALLER_DIR="${M6N_VAR}/installer"}
+: ${M6N_ETC="/etc/medispan"}
+: ${M6N_DRIVERS_DIR="${M6N_ETC}/drivers"}
+: ${M6N_CONF="${M6N_ETC}/conf"}
+: ${M6N_XML_SRC="${M6N_CONF}/MediSpan.xml"}
+: ${M6N_USER_CONFIG_XML_SRC="${M6N_CONF}/MediSpan.Install.User.Config.xml"}
+: ${M6N_INSTALLS_TYPE="DOWNLOAD_AND_INSTALL"}
+: ${M6N_AUTO_START="/Autostart:${M6N_INSTALLS_TYPE}"}
+: ${M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE="INCREMENTAL_DB"}
+: ${M6N_INSTALL_DEBUG_SLEEP="0"}
+: ${M6N_POST_INSTALL_HOOKS_DIR="/medispan/post-install-hooks"}

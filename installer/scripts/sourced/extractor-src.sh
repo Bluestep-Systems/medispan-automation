@@ -1,7 +1,7 @@
 pushd "${M6N_INSTALLER_DIR}" > /dev/null
 
 echo "Removing old files if they exist."
-rm -r * &> /dev/null || true
+rm -rf * &> /dev/null || true
 
 echo "Extracting installer files ..."
 unzip -o -q "${M6N_DOWNLOAD_DIR}/*java-.net*.zip"

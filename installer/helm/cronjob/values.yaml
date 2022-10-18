@@ -12,8 +12,16 @@ password: "use --set password=xxx"
 # The id inside of MediSpan.xml that you want to update.
 dataAccessId: "PostgresData"
    
-# Can be either "FULL_DB" or "INCREMENTAL_DB"
-dataDownloadType: INCREMENTAL_DB
+installs:
+  # SPECIFY_DIRECTORY | DOWNLOAD_AND_INSTALL | DELETE
+  type: DOWNLOAD_AND_INSTALL
+  specifyDirectory:
+    # Can be either "FULL_DB" or "INCREMENTAL_DB"
+    type: INCREMENTAL_DB
+  downloadAndInstall:
+    # encyrpted password <WebDownload_Password> inside of MediSpan.xml
+    password: "somebase64string"
+  
 
 image:
   repository: caffeine01/medispan-installer
@@ -81,15 +89,26 @@ conf:
   #   <MediSpanConfig>
   #       <Install>
   #           <Installs>
-  #               <MyData1>
+  #               <SPECIFY_DIRECTORY>
   #                   <Installer>Directory</Installer>
   #                   <Directory_Path>/custom-data-folder</Directory_Path>
   #                   <Product_DataAccessId>OracleData</Product_DataAccessId>
-  #               </MyData1>
+  #               </SPECIFY_DIRECTORY>
+  #               <DOWNLOAD_AND_INSTALL>
+  #                   <Installer>MBL.Web</Installer>
+  #                   <Directory_Path>/var/medispan/data</Directory_Path>
+  #                   <Product_DataAccessId>OracleData</Product_DataAccessId>
+  #                   <WebDownload_UserId>medispanusername</WebDownload_UserId>
+  #                   <WebDownload_Password>Ww4iu50s==</WebDownload_Password>
+  #               </DOWNLOAD_AND_INSTALL>
   #           </Installs>
   #       </Install>
   #   </MediSpanConfig>
 
 extraEnvs:
   # - name: M6N_AUTO_START
-  #   value: "/Autostart:MyData1"
+  #   value: "/Autostart:DOWNLOAD_AND_INSTALL"
+
+extraVolumes: []
+
+extraVolumeMounts: []

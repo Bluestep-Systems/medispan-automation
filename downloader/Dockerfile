@@ -1,8 +1,8 @@
 FROM eclipse-temurin:17
 
-RUN mkdir -p /medispan/downloaded
+RUN mkdir -p /var/medispan/downloaded
 
-COPY build/libs/downloader.jar /medispan/downloader.jar
-COPY scripts/downloader.sh /medispan/downloader.sh
+COPY build/libs/downloader.jar /opt/medispan/downloader.jar
+COPY scripts/downloader.sh /opt/medispan/downloader.sh
 
-ENTRYPOINT ["/medispan/downloader.sh"]
+ENTRYPOINT ["/opt/medispan/downloader.sh"]

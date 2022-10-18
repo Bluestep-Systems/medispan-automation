@@ -3,10 +3,11 @@
 set -e
 cd $(dirname "$0")
 
-source ./env-src.sh
-source ./check-required-src.sh
-source ./software-download-src.sh
-source ./extractor-src.sh
-source ./script-fixer-src.sh
-source ./data-download-src.sh
-source ./install-data-src.sh
+source ./sourced/env-src.sh
+source ./sourced/check-required-src.sh
+source ./sourced/software-download-src.sh
+source ./sourced/extractor-src.sh
+source ./sourced/script-fixer-src.sh
+source ./sourced/data-download-src.sh
+source ./sourced/install-data-src.sh
+source ./sourced/post-install-hooks-src.sh

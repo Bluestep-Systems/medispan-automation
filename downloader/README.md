@@ -19,9 +19,9 @@ downloader/docker-build.sh
 ```
 ### Example
 ```bash
-docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" medispan-downloader
+docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" caffeine01/medispan-downloader
 ```
-If you want to keep the data and software outside of docker then map a volume like `-v /medispan/downloaded:/medispan/downloaded`
+If you want to keep the data and software outside of docker then map a volume like `-v /var/medispan:/var/medispan`
 
 ## License
 [Apache License Version 2.0](LICENSE)

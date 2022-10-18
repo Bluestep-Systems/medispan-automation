@@ -17,17 +17,20 @@ spec:
             configMap:
               name: {{ include "m6n-installer.fullname" . }}-conf
               defaultMode: 420
+          {{- toYaml .Values.extraVolumes | nindent 10 }}
           containers:
           - name: {{ .Chart.Name }}
             {{- with .Values.image }}
             image: "{{ .repository }}:{{ .tag }}"
             imagePullPolicy: {{ .pullPolicy }}
-           {{- end }}
+            {{- end }}
             env:
             - name: M6N_DATA_ACCESS_ID
               value: "{{ .Values.dataAccessId }}"
-            - name: M6N_DATA_DOWNLOAD_TYPE
-              value: "{{ .Values.dataDownloadType }}"
+            - name: M6N_INSTALLS_TYPE
+              value: "{{ .Values.installs.type }}"
+            - name: M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE
+              value: "{{ .Values.installs.specifyDirectory.type }}"
               {{- if .Values.extraEnvs }}
                 {{- toYaml .Values.extraEnvs | nindent 12 }}
               {{- end }}
@@ -35,8 +38,9 @@ spec:
             - secretRef:
                 name: {{ include "m6n-installer.fullname" . }}
             volumeMounts:
-            - mountPath: /medispan/conf
+            - mountPath: /etc/medispan/conf
               name: conf
+            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- with .Values.nodeSelector }}
           nodeSelector:
             {{- toYaml . | nindent 8 }}

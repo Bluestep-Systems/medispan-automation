@@ -12,7 +12,7 @@ These commands are run from the /installer/helm folder.
 ### Convert an existing MediSpan.xml to an override file.
 ```bash
 cat <(echo -e "conf:\n  MediSpan.xml: |"; \
-      cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+      cat /etc/medispan/conf/MediSpan.xml | sed 's/^/    /') \
   > override-medispan-xml.yaml
 ```
 
@@ -24,6 +24,7 @@ helm upgrade --install --namespace default \
   --set username=medispan-username \
   --set password=medispan-password \
   --set dataAccessId=MySqlData
+  --set installs.downloadAndInstall.password=password-encrypted-and-base64
 ```
 
 ### Use an existing MediSpan.xml without converting it first.
@@ -32,26 +33,32 @@ This command combines the previous two into one command by using a subshell to p
 cat <<EOF | helm upgrade --install --namespace default \ 
   m6n-installer . \
   -f <(echo -e "conf:\n  MediSpan.xml: |"; \ 
-       cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+       cat /etc/medispan/conf/MediSpan.xml | sed 's/^/    /') \
   -f -
 username: medispan-username
 password: medispan-password
+installs:
+  downloadAndInstall:
+    password: "somebase64string"
 dataAccesId: PostgresData
 EOF
 ```
 
 ### Do an initial full database install.
-This command overrides `dataDownloadType` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
+This command overrides `type` to do a `FULL_DB` instead of an `INCREMENTAL_DB` install.
 ```bash
 cat <<EOF | helm upgrade --install --namespace default \ 
   m6n-installer . \
   -f <(echo -e "conf:\n  MediSpan.xml: |"; \ 
-       cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+       cat /etc/medispan/conf/MediSpan.xml | sed 's/^/    /') \
   -f -
 username: medispan-username
 password: medispan-password
 dataAccesId: PostgresData
-dataDownloadType: FULL_DB
+installs:
+  type: SPECIFY_DIRECTORY
+  specifyDirectory:
+    type: FULL_DB
 EOF
 ```
 
@@ -61,16 +68,19 @@ echo "Manual Trigger cronjob to do a full database update"
 kubectl --namespace default create job --from=cronjob/m6n-installer m6p-installer-manual-init
 ```
 
-Now change the cronjob to an incremental.
+Now change the cronjob to do a Download and Install.
 ```bash
 cat <<EOF | helm upgrade --install --namespace default \ 
   m6n-installer . \
   -f <(echo -e "conf:\n  MediSpan.xml: |"; \ 
-       cat /medispan/conf/MediSpan.xml | sed 's/^/    /') \
+       cat /etc/medispan/conf/MediSpan.xml | sed 's/^/    /') \
   -f -
 username: medispan-username
 password: medispan-password
 dataAccesId: PostgresData
-dataDownloadType: INCREMENTAL_DB
+installs:
+  type: DOWNLOAD_AND_INSTALL
+  downloadAndInstall:
+    password: "somebase64string"
 EOF
 ```
