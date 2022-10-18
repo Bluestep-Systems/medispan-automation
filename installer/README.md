@@ -9,7 +9,7 @@ Another use of the installer is to run as a weekly [CronJob](helm/cronjob/README
 ## Environment Variables
 - `m6n_authentication_username`: Required. Medi-Span username
 - `m6n_authentication_password`: Required. Medi-Span password
-- `M6N_WEBDOWNLOAD_PASSWORD`: Required if using `DOWNLOAD_AND_INSTALL`. Medi-Span encryped base64 password
+- `M6N_WEBDOWNLOAD_PASSWORD`: Required if using `DOWNLOAD_AND_INSTALL`. Medi-Span encrypted base64 password
 - `M6N_DATA_ACCESS_ID`: Required. DataId in MediSpan.xml
 - `M6N_DRIVERS_DIR`: If jdbc drivers exist here, then they will be used instead of the defaults.
 - `M6N_INSTALLS_TYPE`: Default `DOWNLOAD_AND_INSTALL`.  Can be one of `DOWNLOAD_AND_INSTALL`, `SPECIFY_DIRECTORY`, `DELETE`.
