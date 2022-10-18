@@ -15,6 +15,7 @@ Another use of the installer is to run as a weekly [CronJob](helm/cronjob/README
 - `M6N_INSTALLS_TYPE`: Default `DOWNLOAD_AND_INSTALL`.  Can be one of `DOWNLOAD_AND_INSTALL`, `SPECIFY_DIRECTORY`, `DELETE`.
 - `M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE`: Default `INCREMENTAL_DB`. Used with `SPECIFY_DIRECTORY`. Can be used to download `FULL_DB` instead of `INCREMENTAL_DB` files or both `INCREMENTAL_DB,FULL_DB`.
 - `M6N_AUTO_START`: Default `/Autostart:${M6N_INSTALLS_TYPE}`. Can be used to select a different installer or more than one.  Will also need to mount a custom file at /etc/medispan/conf/MediSpan.Install.User.Config.xml
+- `M6N_POST_INSTALL_HOOKS_DIR`: Any *.sh files in this directory will run(using source) after the installer.sh finishes. Could be helpful if you want scp/ftp any of the downloaded files somewhere else.
 - See [scripts/env-src.sh](scripts/env-src.sh) for other environmental variable overrides available.
 
 ## MediSpan.xml

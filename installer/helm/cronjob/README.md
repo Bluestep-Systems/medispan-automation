@@ -101,7 +101,7 @@ EOF
 ```
 
 ### Persist images and installer to local filestem.
-This command combines the previous two into one command by using a subshell to properly format the MediSpan.xml as an override. It also uses an inline override instead of using `--set`.
+This example use hostPath volume. A nfs volume could also be used if sharing of the files is needed.
 ```bash
 cat <<EOF | helm upgrade --install --namespace default \ 
   m6n-installer . \
