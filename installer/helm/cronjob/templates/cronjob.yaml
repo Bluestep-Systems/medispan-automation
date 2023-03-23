@@ -11,6 +11,9 @@ spec:
     spec:
       backoffLimit: {{ .Values.backoffLimit }}
       template:
+        metadata:
+          labels:
+            {{- include "m6n-installer.labels" . | nindent 12 }}
         spec:
           volumes:
           - name: conf
