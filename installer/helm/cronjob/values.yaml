@@ -26,7 +26,7 @@ installs:
 image:
   repository: caffeine01/medispan-installer
   #Overrides all the jdbc drivers to use a newer version of postgres
-  tag: "jdbc-postgres"
+  tag: "jdbc-postgres-202502071531"
   #Uses the all built in jdbc drivers
   # tag: "jdbc-default"
   pullPolicy: IfNotPresent
