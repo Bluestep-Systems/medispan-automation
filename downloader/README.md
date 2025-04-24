@@ -15,11 +15,13 @@ The [installer](../installer/README.md) uses the downloader.
 ## Docker
 ### Create
 ```bash
-downloader/docker-build.sh
+./gradlew jar
+docker compose build
+docker push ghcr.io/bluestep-systems/m6n-downloader
 ```
 ### Example
 ```bash
-docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" caffeine01/medispan-downloader
+docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" ghcr.io/bluestep-systems/m6n-downloader
 ```
 If you want to keep the data and software outside of docker then map a volume like `-v /var/medispan:/var/medispan`
 
