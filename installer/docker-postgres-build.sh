@@ -10,12 +10,12 @@ cd $(dirname "$0")
 NOW=$(date +%Y%m%d%H%M)
 export PGVERSION
 docker build . --build-arg PGVERSION \
-  -t caffeine01/medispan-installer:jdbc-postgres \
-  -t caffeine01/medispan-installer:jdbc-postgres-${PGVERSION} \
-  -t caffeine01/medispan-installer:jdbc-postgres-${NOW} \
+  -t ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres \
+  -t ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION} \
+  -t ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW} \
   -f Dockerfile-postgres
 
 [ "--push" == "${1}" ] \
-    && docker push caffeine01/medispan-installer:jdbc-postgres \
-    && docker push caffeine01/medispan-installer:jdbc-postgres-${PGVERSION} \
-    && docker push caffeine01/medispan-installer:jdbc-postgres-${NOW}
+    && docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres \
+    && docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION} \
+    && docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW}

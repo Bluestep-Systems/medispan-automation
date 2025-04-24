@@ -24,9 +24,9 @@ installs:
   
 
 image:
-  repository: caffeine01/medispan-installer
+  repository: ghcr.io/bluestep-systems/medispan-automation
   #Overrides all the jdbc drivers to use a newer version of postgres
-  tag: "jdbc-postgres-202502071531"
+  tag: "jdbc-postgres-202504241224"
   #Uses the all built in jdbc drivers
   # tag: "jdbc-default"
   pullPolicy: IfNotPresent

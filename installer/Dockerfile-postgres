@@ -1,4 +1,4 @@
-FROM caffeine01/medispan-installer:jdbc-default
+FROM ghcr.io/bluestep-systems/medispan-automation:jdbc-default
 
 ARG PGVERSION
 RUN echo "PGVERSION=${PGVERSION}"

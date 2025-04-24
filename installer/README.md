@@ -65,7 +65,7 @@ docker run -it \
   -e M6N_DATA_ACCESS_ID=OracleData \
   -v /var/medispan:/var/medispan \
   -v /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml \
-  caffeine01/medispan-installer
+  ghcr.io/bluestep-systems/medispan-automation
 ```
 
 #### Arguments Explained:
