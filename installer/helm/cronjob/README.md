@@ -130,3 +130,40 @@ extraVolumeMounts:
     mountPath: /var/medispan/installer
 EOF
 ```
+
+# What happens in the situation where the incremental stops working because the data is so far out of date that basically none of the above information applies?
+
+## Step 1. Find this part in the YAML
+```yaml
+  - name: M6N_INSTALLS_TYPE
+    value: SPECIFY_DIRECTORY
+  - name: M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE
+    value: INCREMENTAL_DB 
+```
+
+## Step 2. change the section to look like this
+```yaml
+  - name: M6N_INSTALLS_TYPE
+    value: DELETE #change this value and comment out the lines below
+  - name: M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE #leave this alone
+    value: INCREMENTAL_DB
+```
+## Step 3. then manually trigger the job. wait for it to finish running
+
+## Step 4. Go get the full db
+```yaml
+  - name: M6N_INSTALLS_TYPE
+    value: SPECIFY_DIRECTORY # change this value back
+  - name: M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE
+    value: FULL_DB # change this value to FULL_DB
+```
+## Step 5. manually trigger this as well
+
+## Step 6. Reset it back to what you originally found
+```yaml
+  - name: M6N_INSTALLS_TYPE
+    value: SPECIFY_DIRECTORY
+  - name: M6N_INSTALLS_SPECIFY_DIRECTORY_TYPE
+    value: INCREMENTAL_DB  # change this value to 
+```
+#### you don't need to trigger this, because it will take effect next time the job runs
