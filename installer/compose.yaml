@@ -1,0 +1,22 @@
+services:
+  medispan-automation:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      tags:
+      - medispan-automation:latest
+      - ghcr.io/bluestep-systems/medispan-automation:latest
+    image: medispan-automation
+  medispan-automation-jdbc:
+    build: 
+      args:
+        PGVERSION: ${PGVERSION}
+      context: .
+      dockerfile: Dockerfile-postgres
+      tags:
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW}
+    image: medispan-automation:jdbc-postgres
+
+

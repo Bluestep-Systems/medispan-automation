@@ -1,4 +1,7 @@
-FROM caffeine01/medispan-downloader
+FROM ghcr.io/bluestep-systems/m6n-downloader:latest
+LABEL org.opencontainers.image.source=https://github.com/Bluestep-Systems/medispan-automation
+LABEL org.opencontainers.image.description="Free tools to automate Medi-Span®'s software and data downloads and their installations."
+HEALTHCHECK NONE
 
 RUN apt-get update && apt-get install -y \
     unzip \

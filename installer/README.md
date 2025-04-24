@@ -49,11 +49,19 @@ Unless /etc/medispan/conf/MediSpan.Install.User.Config.xml exists. The following
 
 ## Docker
 
-Dependent on caffeine01/medispan-downloader docker build.
+Dependent on ghcr.io/bluestep-systems/m6n-downloader docker build.
 
 ### Create
+At this time the postgres used by the `latest` tag uses an outdated driver.
+The `jdbc-postgres` tags merely uses a newer postgres driver.
 ```bash
-installer/docker-build.sh
+source .env
+export NOW=$(date +%Y%m%d%H%M) 
+docker compose build
+docker push ghcr.io/bluestep-systems/medispan-automation
+docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
+docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW}
+docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}
 ```
 
 ### Example
@@ -61,7 +69,7 @@ installer/docker-build.sh
 docker run -it \
   -e m6n_authentication_username="your-medispan-user-id" \
   -e m6n_authentication_password="your-medispan-password" \
-  -e M6N_WEBDOWNLOAD_PASSWORD="pre-encrypted-download-and-install-base64-password"
+  -e M6N_WEBDOWNLOAD_PASSWORD="pre-encrypted-download-and-install-base64-password" \
   -e M6N_DATA_ACCESS_ID=OracleData \
   -v /var/medispan:/var/medispan \
   -v /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml \
@@ -74,14 +82,4 @@ docker run -it \
 
 ## License
 [MIT License](LICENSE)
-
-## Docker Postgres
-
-At this time the postgres used by the medispan-install.sh uses an outdated driver.
-This image just installs a newer postgres driver.
-
-### Create
-```bash
-installer/docker-postgres-build.sh
-```
 
