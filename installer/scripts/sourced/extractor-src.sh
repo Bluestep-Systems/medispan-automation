@@ -7,10 +7,11 @@ unzip -o -q "${M6N_DOWNLOAD_DIR}/*java-.net*.zip" 'MSClinical5.1/*'
 if [ "TRUE" == "${M6N_EXTRACT_JAVA}" ]; then
   echo "Extracting Java files ..."
   rm -rf Java/* &>/dev/null || true
-  #copy all jars from all zip files to Java folder
-  unzip -o "MSClinical5.1/*.zip" '*Java/*'  
-  mv */Java/* Java/
-  ls Java/*.jar
+  # #copy all jars from all zip files to Java folder
+  # unzip -o "MSClinical5.1/*.zip" '*Java/*'  
+  # mv */Java/* Java/
+  # ls Java/*.jar
+  unzip -o "MSClinical5.1/*.zip" 'Java/*'
 fi
 if [ "TRUE" == "${M6N_EXTRACT_DOTNET}" ]; then
   echo "Extracting DOTNET files ..."
