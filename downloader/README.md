@@ -17,7 +17,7 @@ The [installer](../installer/README.md) uses the downloader.
 ```bash
 ./gradlew jar
 docker compose build
-docker push ghcr.io/bluestep-systems/m6n-downloader
+docker compose push
 ```
 ### Example
 ```bash

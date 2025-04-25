@@ -4,8 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       tags:
-      - m6n-downloader:latest
       - ghcr.io/bluestep-systems/m6n-downloader:latest
-    image: m6n-downloader
+    image: ghcr.io/bluestep-systems/m6n-downloader
 
 

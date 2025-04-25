@@ -55,13 +55,9 @@ Dependent on ghcr.io/bluestep-systems/m6n-downloader docker build.
 At this time the postgres used by the `latest` tag uses an outdated driver.
 The `jdbc-postgres` tags merely uses a newer postgres driver.
 ```bash
-source .env
 export NOW=$(date +%Y%m%d%H%M) 
 docker compose build
-docker push ghcr.io/bluestep-systems/medispan-automation
-docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
-docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW}
-docker push ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}
+docker compose push
 ```
 
 ### Example
