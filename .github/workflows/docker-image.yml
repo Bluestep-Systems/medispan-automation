@@ -114,11 +114,11 @@ jobs:
             PGVERSION=${{ env.PGVERSION }}
           push: true
           tags: |
-            - ghcr.io/bluestep-systems/medispan-automation:latest
-            - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
-            - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.TAG }}
-            - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.PGVERSION }}
-            - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.PGVERSION }}-${{ env.TAG }}
+            ghcr.io/bluestep-systems/medispan-automation
+            ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
+            ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.TAG }}
+            ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.PGVERSION }}
+            ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${{ env.PGVERSION }}-${{ env.TAG }}
           cache-from: type=gha
           cache-to: type=gha    
 
