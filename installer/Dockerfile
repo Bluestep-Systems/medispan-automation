@@ -1,4 +1,4 @@
-FROM ghcr.io/bluestep-systems/m6n-downloader:latest
+FROM ghcr.io/bluestep-systems/medispan-automation:downloader
 LABEL org.opencontainers.image.source=https://github.com/Bluestep-Systems/medispan-automation
 LABEL org.opencontainers.image.description="Free tools to automate Medi-Span®'s software and data downloads and their installations."
 HEALTHCHECK NONE

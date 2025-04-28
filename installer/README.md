@@ -49,16 +49,8 @@ Unless /etc/medispan/conf/MediSpan.Install.User.Config.xml exists. The following
 
 ## Docker
 
-Dependent on ghcr.io/bluestep-systems/m6n-downloader docker build.
+Dependent on ghcr.io/bluestep-systems/medispan-automation:downloader docker build.
 
-### Create
-At this time the postgres used by the `latest` tag uses an outdated driver.
-The `jdbc-postgres` tags merely uses a newer postgres driver.
-```bash
-export NOW=$(date +%Y%m%d%H%M) 
-docker compose build
-docker compose push
-```
 
 ### Example
 ```bash

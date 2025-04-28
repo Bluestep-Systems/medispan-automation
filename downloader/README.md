@@ -12,16 +12,9 @@ The [installer](../installer/README.md) uses the downloader.
 - `m6n_download_latestOnly`: Default `true`.  Find the latest issue date of the select files and only download those files with that date.
 - See [src/main/resources/config.properties](src/main/resources/config.properties) for other possible environmental variable you can use to override the downloader's behavior.
 
-## Docker
-### Create
-```bash
-./gradlew jar
-docker compose build
-docker compose push
-```
 ### Example
 ```bash
-docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" ghcr.io/bluestep-systems/m6n-downloader
+docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" ghcr.io/bluestep-systems/medispan-automation:downloader
 ```
 If you want to keep the data and software outside of docker then map a volume like `-v /var/medispan:/var/medispan`
 

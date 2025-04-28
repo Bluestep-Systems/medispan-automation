@@ -10,3 +10,9 @@ Automates the download of Medi-Span software and data. See [downloader README.md
 ## Installer
 
 Automates the installation/update of Medi-Span data. Also has a helm chart that installs a [CronJob](installer/helm/cronjob/README.md) to automatically update the database. See [installer README.md](installer/README.md).
+
+## Docker build/push
+```bash
+docker compose build
+docker compose push
+```

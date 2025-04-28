@@ -1,0 +1,33 @@
+services:
+  m6n-downloader:
+    build: 
+      context: ./downloader
+      dockerfile: Dockerfile
+      tags:
+      - ghcr.io/bluestep-systems/medispan-automation:downloader
+      - ghcr.io/bluestep-systems/medispan-automation:downloader-${NOW}
+    image: ghcr.io/bluestep-systems/medispan-automation:downloader
+  m6n-installer:
+    build: 
+      context: ./installer
+      dockerfile: Dockerfile
+      tags:
+      - ghcr.io/bluestep-systems/medispan-automation:installer
+      - ghcr.io/bluestep-systems/medispan-automation:installer-${NOW}
+    image: ghcr.io/bluestep-systems/medispan-automation:installer
+    depends_on:
+      - m6n-downloader
+  medispan-automation:
+    build: 
+      args:
+        PGVERSION: ${PGVERSION}
+      context: ./installer
+      dockerfile: Dockerfile-postgres
+      tags:
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}
+      - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${NOW}
+      - ghcr.io/bluestep-systems/medispan-automation:latest
+    image: ghcr.io/bluestep-systems/medispan-automation:latest
+    depends_on:
+      - m6n-installer
