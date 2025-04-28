@@ -1,17 +1,12 @@
 restartPolicy: OnFailure
-
 concurrencyPolicy: Forbid
-   
 #At 00:00 on Sunday
 schedule: "@weekly"
 backoffLimit: 2
-
 username: "use --set username=xxx"
 password: "use --set password=xxx"
-
 # The id inside of MediSpan.xml that you want to update.
 dataAccessId: "PostgresData"
-   
 installs:
   # SPECIFY_DIRECTORY | DOWNLOAD_AND_INSTALL | DELETE
   type: DOWNLOAD_AND_INSTALL
@@ -21,57 +16,48 @@ installs:
   downloadAndInstall:
     # encyrpted password <WebDownload_Password> inside of MediSpan.xml
     password: "somebase64string"
-  
-
 image:
   repository: ghcr.io/bluestep-systems/medispan-automation
   #Overrides all the jdbc drivers to use a newer version of postgres
-  tag: "jdbc-postgres-202504241224"
+  tag: "25.04.28.00"
   #Uses the all built in jdbc drivers
   # tag: "jdbc-default"
   pullPolicy: IfNotPresent
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
-
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
-
 conf:
   # Use a real MediSpan.xml file.
   MediSpan.xml: |
@@ -81,7 +67,6 @@ conf:
       <DataAccess>
       </DataAccess>
     </MediSpanConfig>
-
   #Override a specific saved installer configuration file if you want
   #Use M6N_AUTO_START to specify the Autostart InstallerId
   # MediSpan.Install.User.Config.xml: |
@@ -104,11 +89,8 @@ conf:
   #           </Installs>
   #       </Install>
   #   </MediSpanConfig>
-
 extraEnvs:
-  # - name: M6N_AUTO_START
-  #   value: "/Autostart:DOWNLOAD_AND_INSTALL"
-
+# - name: M6N_AUTO_START
+#   value: "/Autostart:DOWNLOAD_AND_INSTALL"
 extraVolumes: []
-
 extraVolumeMounts: []
