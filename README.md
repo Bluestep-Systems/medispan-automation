@@ -13,6 +13,7 @@ Automates the installation/update of Medi-Span data. Also has a helm chart that 
 
 ## Docker build/push
 ```bash
+export NOW=$(date +%Y%m%d%H%M)
 docker compose build
 docker compose push
 ```
