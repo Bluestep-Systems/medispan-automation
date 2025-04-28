@@ -1,4 +1,5 @@
-FROM ghcr.io/bluestep-systems/medispan-automation:downloader
+ARG TAG
+FROM ghcr.io/bluestep-systems/medispan-automation:downloader-${TAG}
 LABEL org.opencontainers.image.source=https://github.com/Bluestep-Systems/medispan-automation
 LABEL org.opencontainers.image.description="Free tools to automate Medi-Span®'s software and data downloads and their installations."
 HEALTHCHECK NONE
