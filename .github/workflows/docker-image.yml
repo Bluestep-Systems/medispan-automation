@@ -69,8 +69,8 @@ jobs:
       - name: Build and push downloader with cache
         uses: docker/build-push-action@v6
         with:
-          context: ./downloader
-          file: Dockerfile
+          context: downloader
+          file: downloader/Dockerfile
           push: true
           tags: |
             ghcr.io/bluestep-systems/medispan-automation:downloader-${{ env.TAG }}
@@ -80,8 +80,8 @@ jobs:
       - name: Build and push installer with cache
         uses: docker/build-push-action@v6
         with:
-          context: ./installer
-          file: Dockerfile
+          context: installer
+          file: installer/Dockerfile
           build-args: |
             TAG=${{ env.TAG }}
           push: true
@@ -93,8 +93,8 @@ jobs:
       - name: Build and push jdbc-postgres tags with cache
         uses: docker/build-push-action@v6
         with:
-          context: ./installer
-          file: Dockerfile-postgres
+          context: installer
+          file: installer/Dockerfile-postgres
           build-args: |
             TAG=${{ env.TAG }}
             PGVERSION=${{ env.PGVERSION }}
