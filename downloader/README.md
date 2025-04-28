@@ -16,7 +16,7 @@ The [installer](../installer/README.md) uses the downloader.
 ```bash
 # Change credentials.env to use your credentials
 cd ..
-docker compose run m6n-downloader -it
+docker compose run m6n-downloader -it --rm
 ```
 If you want to keep the data and software outside of docker then map a volume like `-v /var/medispan:/var/medispan`
 

@@ -27,7 +27,7 @@ services:
       - /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml
     depends_on:
       - m6n-downloader
-  medispan-automation:
+  m6n-installer-postgres:
     build: 
       args:
         PGVERSION: ${PGVERSION}
@@ -41,6 +41,12 @@ services:
       - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}
       - ghcr.io/bluestep-systems/medispan-automation:jdbc-postgres-${PGVERSION}-${TAG}
     image: ghcr.io/bluestep-systems/medispan-automation
+    env_file:
+      - credentials.env
+      - installer.env
+    volumes:
+      - /var/medispan:/var/medispan
+      - /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml
     depends_on:
       - m6n-installer
     

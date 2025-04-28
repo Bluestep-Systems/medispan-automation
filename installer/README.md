@@ -55,7 +55,7 @@ Dependent on ghcr.io/bluestep-systems/medispan-automation:downloader docker buil
 ### Example
 ```bash
 cd ..
-docker compose run -it m6n-installer
+docker compose run -it --rm m6n-installer-postgres
 ```
 
 #### Arguments Explained:
