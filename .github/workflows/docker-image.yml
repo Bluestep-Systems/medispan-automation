@@ -1,4 +1,4 @@
-name: Build and Push Docker pdfreactor and kubectl Image CI
+name: Build and Push Docker medispan-automation and kubectl Image CI
 
 on: 
   workflow_dispatch:
