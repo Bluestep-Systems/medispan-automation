@@ -70,7 +70,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: downloader
-          file: Dockerfile
+          file: downloader/Dockerfile
           push: true
           tags: |
             ghcr.io/bluestep-systems/medispan-automation:downloader-${{ env.TAG }}
@@ -81,7 +81,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: installer
-          file: Dockerfile
+          file: installer/Dockerfile
           build-args: |
             TAG=${{ env.TAG }}
           push: true
@@ -94,7 +94,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: installer
-          file: Dockerfile-postgres
+          file: installer/Dockerfile-postgres
           build-args: |
             TAG=${{ env.TAG }}
             PGVERSION=${{ env.PGVERSION }}
