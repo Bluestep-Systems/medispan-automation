@@ -54,14 +54,8 @@ Dependent on ghcr.io/bluestep-systems/medispan-automation:downloader docker buil
 
 ### Example
 ```bash
-docker run -it \
-  -e m6n_authentication_username="your-medispan-user-id" \
-  -e m6n_authentication_password="your-medispan-password" \
-  -e M6N_WEBDOWNLOAD_PASSWORD="pre-encrypted-download-and-install-base64-password" \
-  -e M6N_DATA_ACCESS_ID=OracleData \
-  -v /var/medispan:/var/medispan \
-  -v /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml \
-  ghcr.io/bluestep-systems/medispan-automation
+cd ..
+docker compose run -it m6n-installer
 ```
 
 #### Arguments Explained:

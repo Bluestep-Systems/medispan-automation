@@ -4,18 +4,27 @@ services:
       context: ./downloader
       dockerfile: Dockerfile
       tags:
+      - ghcr.io/bluestep-systems/medispan-automation:downloader
       - ghcr.io/bluestep-systems/medispan-automation:downloader-${TAG}
     image: ghcr.io/bluestep-systems/medispan-automation:downloader
+    env_file:
+      - credentials.env
   m6n-installer:
     build: 
       args: 
         TAG: ${TAG}
       context: ./installer
       dockerfile: Dockerfile
-
       tags:
+      - ghcr.io/bluestep-systems/medispan-automation:installer
       - ghcr.io/bluestep-systems/medispan-automation:installer-${TAG}
     image: ghcr.io/bluestep-systems/medispan-automation:installer
+    env_file:
+      - credentials.env
+      - installer.env
+    volumes:
+      - /var/medispan:/var/medispan
+      - /etc/medispan/conf/MediSpan.xml:/etc/medispan/conf/MediSpan.xml
     depends_on:
       - m6n-downloader
   medispan-automation:
@@ -34,3 +43,4 @@ services:
     image: ghcr.io/bluestep-systems/medispan-automation
     depends_on:
       - m6n-installer
+    

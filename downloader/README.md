@@ -14,7 +14,9 @@ The [installer](../installer/README.md) uses the downloader.
 
 ### Example
 ```bash
-docker run -it -e m6n_authentication_username="username" -e m6n_authentication_password="password" ghcr.io/bluestep-systems/medispan-automation:downloader
+# Change credentials.env to use your credentials
+cd ..
+docker compose run m6n-downloader -it
 ```
 If you want to keep the data and software outside of docker then map a volume like `-v /var/medispan:/var/medispan`
 

@@ -13,6 +13,7 @@ Automates the installation/update of Medi-Span data. Also has a helm chart that 
 
 ## Docker build/push
 ```bash
+(cd downloader; ./gradlew -x test -x check jar)
 export TAG=$(date +%y.%m.%d).00
 docker compose build
 docker compose push
